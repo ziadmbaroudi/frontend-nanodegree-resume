@@ -15,11 +15,41 @@ var bio = {
 		"blog": "ramblingteacher.com",
 		"location": "Melbourne, Australia"
 	}, 
-	"picURL": "images/my_photo.jpg",
-	"welcome": "Hi, My name is Ziad and I am interested in independent, part-time work \
+	"biopic": "images/my_photo.jpg",
+	"welcomeMessage": "Hi, My name is Ziad and I am interested in independent, part-time work \
 	            as a front-end web developer. Please take a look at my skills below",
     "skills": skillsArr
 };
+
+// Display function for the bio object
+bio.display = function(){
+	// Overall information
+	$("#header").prepend(HTMLheaderRole.replace("%data%", bio.role));
+	$("#header").prepend(HTMLheaderName.replace("%data%",bio.name));
+	$("#header").append(HTMLbioPic.replace("%data%", bio.biopic));
+
+	var formattedEmail = HTMLemail.replace("%data%", bio.contacts.email);
+	$("#topContacts").append(formattedEmail);
+	var formattedTwitter = HTMLtwitter.replace("%data%", bio.contacts.twitter);
+	$("#topContacts").append(formattedTwitter);
+	var formattedGithub = HTMLgithub.replace("%data%", bio.contacts.github);
+	$("#topContacts").append(formattedGithub);
+	var formattedBlog = HTMLblog.replace("%data%", bio.contacts.blog);
+	$("#topContacts").append(formattedBlog);
+	var formattedLocation = HTMLlocation.replace("%data%", bio.contacts.location);
+	$("#topContacts").append(formattedLocation);
+
+	// Adding skills
+	if (bio.skills.length != 0) {
+		$("#header").append(HTMLskillsStart);
+		for (var item of bio.skills){
+			$("#skills").append(HTMLskills.replace("%data%", item));
+		}
+	}
+	// Add my welcome message
+	$("#header").append(HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage));
+
+} // display function
 
 var work = {
 	"jobs": [
@@ -70,22 +100,40 @@ var education = {
 		"name": "University of Melbourne",
 		"location": "Parkville, Melbourne, VIC, AUS",
 		"qualification": "Master of Education",
-		"gradYear": 2009
+		"dates": "2005 - 2009",
+		"url": "http://www.unimelb.edu.au/"
 	},
 	{
 		"name": "Australian Catholic University",
 		"location": "Melbourne, VIC, AUS",
 		"qualification": "Graduate Diploma of Education",
-		"gradYear": 2003
+		"dates": "2003",
+		"url": "http://www.acu.edu.au/"
 	},
 	{
 		"name": "La Trobe University",
 		"location": "Bundoora, Melbourne, VIC, AUS",
 		"qualification": "Bachelor of Computer Systems Engineering",
-		"gradYear": 2005
+		"dates": "1991 - 1995",
+		"url": "http://www.latrobe.edu.au/"
 	}
 	]
-};
+}
+
+// Display function for education object
+education.display = function() {
+	$("#education").append(HTMLschoolStart);
+	for (school in education.schools) {
+		var formattedName = HTMLschoolName.replace("%data%", education.schools[school].name);
+		$(".education-entry:last").append(formattedName);
+		var formattedDegree = HTMLschoolDegree.replace("%data%", education.schools[school].qualification);
+		$(".education-entry:last").append(formattedDegree);
+		var formattedDates = HTMLschoolDates.replace("%data%", education.schools[school].dates);
+		$(".education-entry:last").append(formattedDates);
+		var formattedLocation = HTMLschoolLocation.replace("%data%", education.schools[school].location);
+		$(".education-entry:last").append(formattedLocation);
+	}
+}
 
 // Projects I have worked on
 var projects = {
@@ -118,49 +166,6 @@ var projects = {
 
 }
 
-// Publications
-var publications = {
-	"articles": [
-	{
-		"author": "Baroudi, Z.",
-		"year": "2015",
-		"title": "Thinking Visually About Algebra",
-		"journal": "Australian Mathematics Teacher",
-		"volume": "71",
-		"issue": "1",
-		"pages": "18-23"
-	}]
-}
-
-bio.display = function(){
-	// Overall information
-	$("#header").prepend(HTMLheaderRole.replace("%data%", bio.role));
-	$("#header").prepend(HTMLheaderName.replace("%data%",bio.name));
-	$("#header").append(HTMLbioPic.replace("%data%", bio.picURL));
-
-	var formattedEmail = HTMLemail.replace("%data%", bio.contacts.email);
-	$("#topContacts").append(formattedEmail);
-	var formattedTwitter = HTMLtwitter.replace("%data%", bio.contacts.twitter);
-	$("#topContacts").append(formattedTwitter);
-	var formattedGithub = HTMLgithub.replace("%data%", bio.contacts.github);
-	$("#topContacts").append(formattedGithub);
-	var formattedBlog = HTMLblog.replace("%data%", bio.contacts.blog);
-	$("#topContacts").append(formattedBlog);
-	var formattedLocation = HTMLlocation.replace("%data%", bio.contacts.location);
-	$("#topContacts").append(formattedLocation);
-
-	// Adding skills
-	if (bio.skills.length != 0) {
-		$("#header").append(HTMLskillsStart);
-		for (var item of bio.skills){
-			$("#skills").append(HTMLskills.replace("%data%", item));
-		}
-	}
-	// Add my welcome message
-	$("#header").append(HTMLwelcomeMsg.replace("%data%", bio.welcome));
-
-} // display function
-
 // Add employment information
 work.display = function() {
 	if (work.jobs.length != 0) {
@@ -190,6 +195,8 @@ function inName() {
 
 $("#main").append(internationalizeButton);
 
+
+
 // Adding a display function (method?) to projects
 projects.display = function() {
 	$("#projects").append(HTMLprojectStart);
@@ -210,6 +217,8 @@ projects.display = function() {
 	}
 
 }
+
+education.display();
 work.display();
 bio.display();
 projects.display();
@@ -217,5 +226,4 @@ projects.display();
 // Map of places I have worked
 $("#mapDiv").append(googleMap);
 initializeMap();
-//var locations = locationFinder();
-//console.log(locations)
+
