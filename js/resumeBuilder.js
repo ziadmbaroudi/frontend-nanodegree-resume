@@ -17,8 +17,8 @@ var bio = {
 		"location": "Melbourne, Australia"
 	}, 
 	"biopic": "images/my_photo.jpg",
-	"welcomeMessage": "Hi, My name is Ziad and I am interested in independent, part-time work \
-	            as a front-end web developer. Please take a look at my skills below",
+	"welcomeMessage": "Hi, My name is Ziad and I am interested in independent, part-time work " +
+	            "as a front-end web developer. Please take a look at my skills below",
     "skills": skillsArr
 };
 
@@ -43,16 +43,16 @@ bio.display = function(){
 	$("#topContacts").append(formattedLocation);
 
 	// Adding skills
-	if (bio.skills.length != 0) {
+	if (bio.skills.length !== 0) {
 		$("#header").append(HTMLskillsStart);
-		for (var item of bio.skills){
-			$("#skills").append(HTMLskills.replace("%data%", item));
+		for (var item in bio.skills){
+			$("#skills").append(HTMLskills.replace("%data%", bio.skills[item]));
 		}
 	}
 	// Add my welcome message
 	$("#header").append(HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage));
 
-} // display function
+}; // display function
 
 var work = {
 	"jobs": [
@@ -62,9 +62,9 @@ var work = {
 		"title": "Teacher / Curriculum leader, Technologies",
 		"location": "Mount Waverley, Melbourne, VIC, AUS",
 		"url": "http://www.avilacollege.vic.edu.au/",
-		"description": "Teaching mathematics and computing at an all-girls, 7-12 school. \
-		Leading the Technologies department which includes Design Tech (Textiles), Food Tech \
-		and Digital Tech. I also promote and run co-curricular programming activities for students."
+		"description": "Teaching mathematics and computing at an all-girls, 7-12 school. " +
+		"Leading the Technologies department which includes Design Tech (Textiles), Food Tech " +
+		"and Digital Tech. I also promote and run co-curricular programming activities for students."
 	},
 	{
 		"employer": "Holmesglen College",
@@ -72,8 +72,8 @@ var work = {
 		"title": "sessional teacher",
 		"location": "Holmesglen, Melbourne, VIC, AUS",
 		"url": "https://www.holmesglen.edu.au/",
-		"description": "Taught subjects contributing to the degree of Bachelor of Information \
-		Technology granted by Charles Sturt University."
+		"description": "Taught subjects contributing to the degree of Bachelor of Information " +
+		"Technology granted by Charles Sturt University."
 	},
 	{
 		"employer": "PACT Global contracting to Sun Microsystems",
@@ -89,27 +89,27 @@ var work = {
 		"title": "Software Engineer",
 		"location": "Heidelberg, Melbourne, VIC, AUS",
 		"url": "www.nokia.com",
-		"description": "Participated in product development teams. Conducted product \
-		testing in both Melbourne and Finland. Functioned as an internal auditor."
+		"description": "Participated in product development teams. Conducted product " +
+		"testing in both Melbourne and Finland. Functioned as an internal auditor."
 	}
 	]
 };
 // Add employment information
 work.display = function() {
-	if (work.jobs.length != 0) {
+	if (work.jobs.length !== 0) {
 		$("#workExperience").append(HTMLworkStart);
-		for (pos in work.jobs) {
+		for (var pos in work.jobs) {
 			var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[pos].employer);
 			formattedEmployer = formattedEmployer.replace("#", work.jobs[pos].url);
 			var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[pos].title);
 			$(".work-entry:last").append(formattedEmployer + formattedTitle);
 			var formattedDates = HTMLworkDates.replace("%data%",  work.jobs[pos].dates);
 			$(".work-entry:last").append(formattedDates);
-			var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[pos].description)
+			var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[pos].description);
 			$(".work-entry:last").append(formattedDescription);
 		}
 	}
-} // display function
+}; // display function
 
 
 // Last educational institution I attended
@@ -148,12 +148,12 @@ var education = {
 		"url": "https://www.udacity.com/courses/cs101",
 	}
 	]
-}
+};
 
 // Display function for education object
 education.display = function() {
 	$("#education").append(HTMLschoolStart);
-	for (school in education.schools) {
+	for (var school in education.schools) {
 		var formattedName = HTMLschoolName.replace("%data%", education.schools[school].name);
 		$(".education-entry:last").append(formattedName);
 		var formattedDegree = HTMLschoolDegree.replace("%data%", education.schools[school].qualification);
@@ -170,7 +170,7 @@ education.display = function() {
 	$("#education").append(HTMLonlineClasses);
 	$("#education").append(HTMLschoolStart);
 
-	for (course in education.onlineCourses) {
+	for (var course in education.onlineCourses) {
 		var formattedTitle = HTMLonlineTitle.replace("%data%", education.onlineCourses[course].title);
 		formattedTitle = formattedTitle.replace("#", education.onlineCourses[course].url);
 		var formattedSchool = HTMLonlineSchool.replace("%data%", education.onlineCourses[course].school);
@@ -180,7 +180,7 @@ education.display = function() {
 		$(".education-entry:last").append(formattedSchool);
 		$(".education-entry:last").append(formattedDate);
 	}
-}
+};
 
 // Projects I have worked on
 var projects = {
@@ -188,24 +188,24 @@ var projects = {
 	{
 		"title": "Researching formative assessments in mathematics education",
 		"dates": "2009",
-		"description": "This was a Master's research project in which I collected \
-		qualitative and quantitative data on the potential for formative \
-		assessment instruments to replace summative ones.",
+		"description": "This was a Master's research project in which I collected " +
+		"qualitative and quantitative data on the potential for formative " +
+		"assessment instruments to replace summative ones.",
 		"images": [],
 		"url": "https://github.com/ziadmbaroudi/Formative-Assessment"	
 	},
 	{
 		"title" : "Lockspin APP",
 		"dates": "2012",
-		"description": "I led an after school APP development group. Together, we \
-		built an APP that's on Google Play and the App Store called Lockspin. The \
-		motivation was to help incoming students to our school learn to use the \
-		combination locks we employ at our school. We created art work, coded and \
-		even composed the music. It was awesome!",
-		"images": ["images/lockspin_mainscrn.png"
-		           , "images/lockspin_numbers.png"
-		           , "images/lockspin_challenge.png"
-		           ,"images/lockspin_credits.png"],
+		"description": "I led an after school APP development group. Together, we " +
+		"built an APP that's on Google Play and the App Store called Lockspin. The " +
+		"motivation was to help incoming students to our school learn to use the " +
+		"combination locks we employ at our school. We created art work, coded and " +
+		"even composed the music. It was awesome!",
+		"images": ["images/lockspin_mainscrn.png",
+		           "images/lockspin_numbers.png",
+		           "images/lockspin_challenge.png",
+		           "images/lockspin_credits.png"],
 		"url": "https://vimeo.com/58011595"
 	}
 
@@ -215,7 +215,7 @@ var projects = {
 // Adding a display function (method?) to projects
 projects.display = function() {
 	$("#projects").append(HTMLprojectStart);
-	for (prj in projects.projects) {
+	for (var prj in projects.projects) {
 		var formattedTitle = HTMLprojectTitle.replace("%data%", projects.projects[prj].title);
 		formattedTitle = formattedTitle.replace("#", projects.projects[prj].url);
 		$(".project-entry:last").append(formattedTitle);
@@ -229,7 +229,7 @@ projects.display = function() {
 
 		}	
 	}
-}
+};
 
 // Publications
 var publications = {
@@ -265,11 +265,11 @@ var publications = {
 	 	"url": "http://files.eric.ed.gov/fulltext/EJ743595.pdf"
 	 }
 	]
-}
+};
 
 publications.display = function() {
 	$("#publications").append(HTMLpublStart);
-	for (article in publications.publication) {
+	for (var article in publications.publication) {
 		var formattedAuthor = HTMLpublAuthor.replace("%data%", publications.publication[article].author);
 		$(".publ-entry:last").append(formattedAuthor);
 		var formattedYear = HTMLpublYear.replace("%data%", publications.publication[article].year);
@@ -286,7 +286,7 @@ publications.display = function() {
 		var formattedPages = HTMLpages.replace("%data%", publications.publication[article].pages);
 		$(".publ-entry:last").append(formattedPages);
 	}
-}	
+};	
 
 // Internationalize my name
 function inName() {
