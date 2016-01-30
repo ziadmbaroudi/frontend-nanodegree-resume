@@ -71,7 +71,11 @@ need to load. You'll see a lot of <link>s to CSS files for styles and
     <div id="education" class="gray">
       <h2>Education</h2>
     </div>
-  
+    <!-- Added by me (Ziad Baroudi) for listing publications -->
+    <div id = "publications">
+      <h2>Publications</h2>
+    </div>
+
     <div id="mapDiv">
       <h2>Where I've Lived and Worked</h2>
     </div>
@@ -126,15 +130,20 @@ need to load. You'll see a lot of <link>s to CSS files for styles and
       document.getElementById('projects').style.display = 'none';
     }
     if(document.getElementsByClassName('education-entry').length === 0) {
-       //document.getElementById('education').style.display = 'none';
       document.getElementById('education').style.display = 'none';
-    }
+    }  
     if(document.getElementsByClassName('flex-item').length === 0) {
       document.getElementById('lets-connect').style.display = 'none';
     }
     if(document.getElementById('map') === null) {
       document.getElementById('mapDiv').style.display = 'none';
     }
+
+    /* Added by me (Ziad Baroudi) for publications */
+    if(document.getElementsByClassName('publ-entry').length === 0) {
+      document.getElementById('publications').style.display = 'none';
+    }
+
   </script>
 </body>
 </html>

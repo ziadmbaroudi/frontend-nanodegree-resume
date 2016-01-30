@@ -9,6 +9,7 @@ var bio = {
 	"name": "Ziad Baroudi",
 	"role": "Front End Developer",
 	"contacts": {
+		"mobile": "+61 418 406 789",
 		"email": "ziadmbaroudi@gmail.com",
 		"github": "ziadmbaroudi",
 		"twitter": "@ramblingteacher",
@@ -28,6 +29,8 @@ bio.display = function(){
 	$("#header").prepend(HTMLheaderName.replace("%data%",bio.name));
 	$("#header").append(HTMLbioPic.replace("%data%", bio.biopic));
 
+	var formattedMobile = HTMLmobile.replace("%data%", bio.contacts.mobile);
+	$("#topContacts").append(formattedMobile);
 	var formattedEmail = HTMLemail.replace("%data%", bio.contacts.email);
 	$("#topContacts").append(formattedEmail);
 	var formattedTwitter = HTMLtwitter.replace("%data%", bio.contacts.twitter);
@@ -91,6 +94,22 @@ var work = {
 	}
 	]
 };
+// Add employment information
+work.display = function() {
+	if (work.jobs.length != 0) {
+		$("#workExperience").append(HTMLworkStart);
+		for (pos in work.jobs) {
+			var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[pos].employer);
+			formattedEmployer = formattedEmployer.replace("#", work.jobs[pos].url);
+			var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[pos].title);
+			$(".work-entry:last").append(formattedEmployer + formattedTitle);
+			var formattedDates = HTMLworkDates.replace("%data%",  work.jobs[pos].dates);
+			$(".work-entry:last").append(formattedDates);
+			var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[pos].description)
+			$(".work-entry:last").append(formattedDescription);
+		}
+	}
+} // display function
 
 
 // Last educational institution I attended
@@ -100,6 +119,7 @@ var education = {
 		"name": "University of Melbourne",
 		"location": "Parkville, Melbourne, VIC, AUS",
 		"qualification": "Master of Education",
+		"majors": [],
 		"dates": "2005 - 2009",
 		"url": "http://www.unimelb.edu.au/"
 	},
@@ -107,6 +127,7 @@ var education = {
 		"name": "Australian Catholic University",
 		"location": "Melbourne, VIC, AUS",
 		"qualification": "Graduate Diploma of Education",
+		"majors": ["Mathematics", "Information Technology"],
 		"dates": "2003",
 		"url": "http://www.acu.edu.au/"
 	},
@@ -114,8 +135,17 @@ var education = {
 		"name": "La Trobe University",
 		"location": "Bundoora, Melbourne, VIC, AUS",
 		"qualification": "Bachelor of Computer Systems Engineering",
+		"majors": ["Computer Science", "Software Engineering"],
 		"dates": "1991 - 1995",
 		"url": "http://www.latrobe.edu.au/"
+	}
+	],
+	"onlineCourses": [
+	{
+		"title": "Introduction to Computer Science",
+		"school": "Udacity.com",
+		"date": "April, 2013",
+		"url": "https://www.udacity.com/courses/cs101",
 	}
 	]
 }
@@ -132,6 +162,23 @@ education.display = function() {
 		$(".education-entry:last").append(formattedDates);
 		var formattedLocation = HTMLschoolLocation.replace("%data%", education.schools[school].location);
 		$(".education-entry:last").append(formattedLocation);
+		if (education.schools[school].majors.length > 0) {
+			var formattedMajors = HTMLschoolMajor.replace("%data%", education.schools[school].majors.join(", "));
+			$(".education-entry:last").append(formattedMajors);
+		}
+	}
+	$("#education").append(HTMLonlineClasses);
+	$("#education").append(HTMLschoolStart);
+
+	for (course in education.onlineCourses) {
+		var formattedTitle = HTMLonlineTitle.replace("%data%", education.onlineCourses[course].title);
+		formattedTitle = formattedTitle.replace("#", education.onlineCourses[course].url);
+		var formattedSchool = HTMLonlineSchool.replace("%data%", education.onlineCourses[course].school);
+		var formattedDate = HTMLonlineDates.replace("%data%", education.onlineCourses[course].date);
+
+		$(".education-entry:last").append(formattedTitle);
+		$(".education-entry:last").append(formattedSchool);
+		$(".education-entry:last").append(formattedDate);
 	}
 }
 
@@ -165,38 +212,6 @@ var projects = {
 	]
 
 }
-
-// Add employment information
-work.display = function() {
-	if (work.jobs.length != 0) {
-		$("#workExperience").append(HTMLworkStart);
-		for (pos in work.jobs) {
-			var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[pos].employer);
-			formattedEmployer = formattedEmployer.replace("#", work.jobs[pos].url);
-			var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[pos].title);
-			$(".work-entry:last").append(formattedEmployer + formattedTitle);
-			var formattedDates = HTMLworkDates.replace("%data%",  work.jobs[pos].dates);
-			$(".work-entry:last").append(formattedDates);
-			var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[pos].description)
-			$(".work-entry:last").append(formattedDescription);
-		}
-	}
-} // display function
-
-// Internationalize my name
-function inName() {
-	var interName = bio.name.trim();
-    var names = interName.split(" ");
-    names[1] = names[1].toUpperCase();
-    names[0] = names[0].slice(0,1).toUpperCase() + names[0].slice(1).toLowerCase();
-    interName = names.join(" ");
-    return interName;
-}
-
-$("#main").append(internationalizeButton);
-
-
-
 // Adding a display function (method?) to projects
 projects.display = function() {
 	$("#projects").append(HTMLprojectStart);
@@ -212,16 +227,86 @@ projects.display = function() {
 			var formattedImage = HTMLprojectImage.replace("%data%", projects.projects[prj].images[i]);
 			$(".project-entry:last").append(formattedImage);
 
-		}
-		
+		}	
 	}
-
 }
+
+// Publications
+var publications = {
+	"publication": [
+	{
+	 	"author": "Baroudi, Z.",
+	 	"year": 2015,
+	 	"title": "Thinking Visually Aboout Algebra",
+	 	"journal": "The Australian Mathematics Teacher",
+	 	"volume": 71,
+	 	"issue": 1,
+	 	"pages": "18-23",
+	 	"url": "http://www.aamt.edu.au/content/download/33049/467366/file/amt71_1_baroudi.pdf"
+	 },
+	 {
+	 	"author": "Baroudi, Z. and Francis, S.",
+	 	"year": 2013,
+	 	"title": "Like Scratch? Step up to BYOB.",
+	 	"journal": "Vinculum",
+	 	"volume": 50,
+	 	"issue": 2,
+	 	"pages": "14-16",
+	 	"url": ""
+	 },
+	 {
+	 	"author": "Baroudi, Z.",
+	 	"year": 2006,
+	 	"title": "Easing Students' Transition to Algebra.",
+	 	"journal": "The Australian Mathematics Teacher",
+	 	"volume": 62,
+	 	"issue": 2,
+	 	"pages": "28-33",
+	 	"url": "http://files.eric.ed.gov/fulltext/EJ743595.pdf"
+	 }
+	]
+}
+
+publications.display = function() {
+	$("#publications").append(HTMLpublStart);
+	for (article in publications.publication) {
+		var formattedAuthor = HTMLpublAuthor.replace("%data%", publications.publication[article].author);
+		$(".publ-entry:last").append(formattedAuthor);
+		var formattedYear = HTMLpublYear.replace("%data%", publications.publication[article].year);
+		$(".publ-entry:last").append(formattedYear);
+		var formattedTitle = HTMLpublTitle.replace("%data%", publications.publication[article].title);
+		formattedTitle = formattedTitle.replace("#", publications.publication[article].url);
+		$(".publ-entry:last").append(formattedTitle);
+		var formattedJournal = HTMLpublJournal.replace("%data%", publications.publication[article].journal);
+		$(".publ-entry:last").append(formattedJournal);
+		var formattedVolume = HTMLvolume.replace("%data%", publications.publication[article].volume);
+		$(".publ-entry:last").append(formattedVolume);
+		var formattedIssue = HTMLissue.replace("%data%", publications.publication[article].issue);
+		$(".publ-entry:last").append(formattedIssue);
+		var formattedPages = HTMLpages.replace("%data%", publications.publication[article].pages);
+		$(".publ-entry:last").append(formattedPages);
+	}
+}	
+
+// Internationalize my name
+function inName() {
+	var interName = bio.name.trim();
+    var names = interName.split(" ");
+    names[1] = names[1].toUpperCase();
+    names[0] = names[0].slice(0,1).toUpperCase() + names[0].slice(1).toLowerCase();
+    interName = names.join(" ");
+    return interName;
+}
+
+$("#main").append(internationalizeButton);
+
+
 
 education.display();
 work.display();
 bio.display();
 projects.display();
+publications.display();
 
 // Map of places I have worked
 $("#mapDiv").append(googleMap);

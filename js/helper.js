@@ -55,15 +55,22 @@ var HTMLonlineSchool = ' - %data%</a>';
 var HTMLonlineDates = '<div class="date-text">%data%</div>';
 var HTMLonlineURL = '<br><a href="#">%data%</a>';
 
+/* 
+   The following code is for adding publications in APA style.
+   Added by me (Ziad Baroudi)
+*/
+var HTMLpublStart = '<div class="publ-entry" class = "hangingindent"></div>';
+var HTMLpublAuthor = '%data% ';
+var HTMLpublYear = '(%data%), ';
+var HTMLpublTitle = '<a style="display:inline" href="#">%data%. </a> ';
+var HTMLpublJournal = '<span class="publication-name">%data%, </span>';
+var HTMLvolume = '%data%';
+var HTMLissue = '(%data%), ';
+var HTMLpages = '%data%.<br>';
+
+
 var internationalizeButton = '<button>Internationalize</button>';
 var googleMap = '<div id="map"></div>';
-
-
-/* 
-Thius section has been added by me (Ziad Baroudi) to list my publications
-*/
-
-
 
 /*
 The International Name challenge in Lesson 2 where you'll create a function that will need this helper code to run. Don't delete! It hooks up your code to the button you'll be appending.
@@ -184,6 +191,7 @@ function initializeMap() {
     // hmmmm, I wonder what this is about...
     google.maps.event.addListener(marker, 'click', function() {
       // your code goes here!
+      infoWindow.open(map, marker);
     });
 
     // this is where the pin actually gets added to the map.

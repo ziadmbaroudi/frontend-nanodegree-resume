@@ -212,3 +212,18 @@ span {
     display: block;
   }
 }
+
+/* The following is css for APA references, added by me (Ziad Baroudi)
+   Acknowledgement: from http://www.thesitewizard.com/css/hanging-indents.shtml
+*/
+.hangingindent {
+  padding-left: 22px;
+  text-indent: -22px;
+}
+.publication-name {
+  font-style: italic;
+}
+
+.publ-entry {
+  padding: 0 5%;
+}
